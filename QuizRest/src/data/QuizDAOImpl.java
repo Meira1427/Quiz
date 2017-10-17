@@ -18,7 +18,7 @@ public class QuizDAOImpl implements QuizDAO {
 
 	@Override
 	public List<Quiz> getAll() {
-		String queryString = "Select q from quiz q";
+		String queryString = "Select q from Quiz q";
 		return em.createQuery(queryString, Quiz.class)
 				 .getResultList();
 	}
