@@ -6,3 +6,7 @@ classes
 gradle
 gradlew
 /.metadata/
+.metadata
+Servers
+.recommenders
+.settings
