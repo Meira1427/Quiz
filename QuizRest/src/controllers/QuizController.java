@@ -54,7 +54,9 @@ public class QuizController {
 	}
 	
 	@RequestMapping(path="quizzes/{id}", method=RequestMethod.PUT) 
-	public Quiz update(int id, @RequestBody String quizJSON, HttpServletResponse res) {
+	public Quiz update(	int id, 
+						@RequestBody String quizJSON, 
+						HttpServletResponse res) {
 		ObjectMapper mapper = new ObjectMapper();
 		Quiz mappedQuiz = null;
 		try {

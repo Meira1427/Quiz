@@ -50,6 +50,9 @@ public class QuizDAOImpl implements QuizDAO {
 			if(quiz.getName() != null && quiz.getName().length() > 0 ) {
 				managedQuiz.setName(quiz.getName());
 			}
+			if(quiz.getQuestions().size() > 0) {
+				managedQuiz.setQuestions(quiz.getQuestions());
+			}
 		}
 		return quiz;
 	}

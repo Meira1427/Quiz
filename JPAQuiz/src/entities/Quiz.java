@@ -1,9 +1,15 @@
 package entities;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Quiz {
@@ -11,6 +17,11 @@ public class Quiz {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	//one quiz has many questions
+	@JsonManagedReference(value="questionsOnQuiz")
+	@OneToMany(mappedBy="quiz", fetch=FetchType.EAGER)
+	private List<Question> questions;
 	
 	private String name;
 
@@ -24,6 +35,14 @@ public class Quiz {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
 
 	@Override

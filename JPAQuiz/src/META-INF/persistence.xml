@@ -11,6 +11,7 @@
     <!-- List Entities Here --> <!-- Location of entities will change per project -->
     <class>entities.Quiz</class>
     <class>entities.Question</class>
+    <class>entities.Answer</class>
 
     <properties><!-- Database url. Will change-->
       <property name="javax.persistence.jdbc.url" 
