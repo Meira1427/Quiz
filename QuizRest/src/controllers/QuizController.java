@@ -1,6 +1,8 @@
 package controllers;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,21 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import data.QuizDAO;
+import entities.Question;
 import entities.Quiz;
 
 @RestController
-public class QuizController {
-	
-//	public String ping();
-//	public List<Quiz> index(HttpServletResponse res);
-//	public Quiz show(int id, HttpServletResponse res);
-//	public Quiz create(String quizJSON, HttpServletResponse res);
-//	public Quiz update(int id, String quizJSON, HttpServletResponse res);
-//	public boolean destroy(int id, HttpServletResponse res);
-//	public Set<Question> showQuestions(int id, HttpServletResponse res);
-//	public Question createQuestions(int id, String questionJson, HttpServletResponse res);
-//	public  boolean destroyQuestions(int id, int questid, HttpServletResponse res);
+public class QuizController {	
 	
 	@Autowired
 	QuizDAO quizDao;
@@ -40,7 +35,7 @@ public class QuizController {
 	}
 	
 	@RequestMapping(path="quizzes/{id}", method=RequestMethod.GET)
-	public Quiz index(@PathVariable int id, HttpServletResponse res) {
+	public Quiz show(@PathVariable int id, HttpServletResponse res) {
 		Quiz q = quizDao.getById(id);
 		if(!(q==null)) {
 			res.setStatus(200); //okay found
@@ -49,6 +44,42 @@ public class QuizController {
 			res.setStatus(404); //not found
 		}
 		return q;
+	}
+	
+	@RequestMapping(path="quizzes", method=RequestMethod.POST)
+	public Quiz create(String quizJSON, HttpServletResponse res) {
+		return quizDao.createNew(quizJSON);
+	}
+	
+	@RequestMapping(path="quizzes/{id}", method=RequestMethod.PUT) 
+	public Quiz update(int id, String quizJSON, HttpServletResponse res) {
+		ObjectMapper mapper = new ObjectMapper();
+		Quiz mappedQuiz = null;
+		try {
+			mappedQuiz = mapper.readValue(quizJSON, Quiz.class);
+			quizDao.updateQuiz(id, mappedQuiz);
+			res.setStatus(201);
+		} catch (IOException e) {
+			res.setStatus(400);
+			e.printStackTrace();
+		}
+		return mappedQuiz;
+	}
+	
+	@RequestMapping(path="quizzes/{id}", method=RequestMethod.DELETE)
+	public boolean destroy(int id) {
+		return quizDao.destroyQuiz(id);
+	}
+	
+	public Set<Question> showQuestions(int id, HttpServletResponse res) {
+		return null;
+	}
+	
+	public Question createQuestions(int id, String questionJson, HttpServletResponse res) {
+		return null;
+	}
+	public boolean destroyQuestions(int id, int questid, HttpServletResponse res) {
+		return false;
 	}
 
 }
