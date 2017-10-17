@@ -9,7 +9,7 @@
     </provider>
 
     <!-- List Entities Here --> <!-- Location of entities will change per project -->
-    <class>entities.ENTITY_NAME</class>
+    <class>entities.Quiz</class>
 
     <properties><!-- Database url. Will change-->
       <property name="javax.persistence.jdbc.url" 
