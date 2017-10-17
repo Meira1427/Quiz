@@ -15,9 +15,9 @@
       <property name="javax.persistence.jdbc.url" 
         value="jdbc:mysql://localhost:3306/quizdb" />
       <property name="javax.persistence.jdbc.user"
-        value="student"/><!-- passing the username for DB. Will change per project -->
+        value="root"/><!-- passing the username for DB. Will change per project -->
       <property name="javax.persistence.jdbc.password"
-        value="student" /><!-- password for DB. Will change-->
+        value="root" /><!-- password for DB. Will change-->
       <property name="javax.persistence.jdbc.driver"
         value="com.mysql.jdbc.Driver" /><!-- Getting the driver that will manage connections -->
        <!-- No longer necessary to create instance of Connection anymore -->
