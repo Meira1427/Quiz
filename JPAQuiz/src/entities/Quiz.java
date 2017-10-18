@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Quiz {
@@ -21,7 +20,7 @@ public class Quiz {
 	private int id;
 	
 	//one quiz has many questions
-	@JsonManagedReference(value="questionsOnQuiz")
+	@JsonIgnore
 	@OneToMany(mappedBy="quiz", fetch=FetchType.EAGER, cascade= {CascadeType.REMOVE})
 	private Set<Question> questions;
 	
