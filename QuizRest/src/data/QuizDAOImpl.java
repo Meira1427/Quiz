@@ -1,12 +1,15 @@
 package data;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import entities.Question;
 import entities.Quiz;
 
 @Transactional
@@ -64,6 +67,39 @@ public class QuizDAOImpl implements QuizDAO {
 			return false;
 		}
 		em.remove(managedQuiz);
+		return true;
+	}
+
+	@Override
+	public Set<Question> showQuestions(int id) {
+		Quiz q = em.find(Quiz.class, id);
+		return q.getQuestions();
+	}
+
+	@Override
+	public Question createQuestion(int id, Question q) {
+		Quiz quiz = em.find(Quiz.class, id);
+		Set<Question> questions = showQuestions(id);
+		em.persist(q);
+		em.flush();
+		questions.add(q);
+		quiz.setQuestions(questions);
+		updateQuiz(id, quiz);
+		return q;
+	}
+
+	@Override
+	public boolean destroyQuestion(int id, int questid) {
+		Quiz quiz = em.find(Quiz.class, id);
+		Question q = em.find(Question.class, questid);
+		if(quiz==null || q==null) {
+			return false;
+		}
+		em.remove(q);
+//		Set<Question> questions = showQuestions(id);
+//		questions.remove(q);
+//		quiz.setQuestions(questions);
+//		updateQuiz(id, quiz);
 		return true;
 	}
 }

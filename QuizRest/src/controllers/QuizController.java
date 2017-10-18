@@ -75,16 +75,36 @@ public class QuizController {
 		return quizDao.destroyQuiz(id);
 	}
 	
+	@RequestMapping(path="quizzes/{id}/questions", method=RequestMethod.GET)
 	public Set<Question> showQuestions(int id, HttpServletResponse res) {
-		return null;
+		return quizDao.showQuestions(id);
 	}
 	
+	@RequestMapping(path="quizzes/{id}/questions", method=RequestMethod.POST)
 	public Question createQuestions(int id, String questionJson, HttpServletResponse res) {
-		return null;
+		ObjectMapper mapper = new ObjectMapper();
+		Question mappedQuestion = null;
+		try {
+			mappedQuestion = mapper.readValue(questionJson, Question.class);
+			quizDao.createQuestion(id, mappedQuestion);
+			res.setStatus(201);
+		} catch (IOException e) {
+			res.setStatus(400);
+			e.printStackTrace();
+		}
+		return mappedQuestion;
 	}
 	
+	@RequestMapping(path="quizzes/{id}/questions/{questid}", method=RequestMethod.DELETE)
 	public boolean destroyQuestions(int id, int questid, HttpServletResponse res) {
-		return false;
+		boolean answer = quizDao.destroyQuestion(id, questid);
+		if(answer) {
+			res.setStatus(202);
+		}
+		else {
+			res.setStatus(400);
+		}
+		return answer;
 	}
 
 }
