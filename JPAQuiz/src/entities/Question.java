@@ -56,6 +56,14 @@ public class Question {
 		this.questionText = questionText;
 	}
 
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

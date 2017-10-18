@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,7 @@ public class Quiz {
 	//one quiz has many questions
 	@JsonManagedReference(value="questionsOnQuiz")
 	@OneToMany(mappedBy="quiz", fetch=FetchType.EAGER)
-	private List<Question> questions;
+	private Set<Question> questions;
 	
 	private String name;
 
@@ -37,13 +38,14 @@ public class Quiz {
 		this.name = name;
 	}
 	
-	public List<Question> getQuestions() {
+	public Set<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
+	
 
 	@Override
 	public String toString() {
