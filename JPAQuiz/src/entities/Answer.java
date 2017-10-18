@@ -6,7 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Answer {
@@ -15,7 +17,9 @@ public class Answer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToOne
+	//many answers for one question - multiple choice
+	@JsonBackReference(value="answersForQuestion")
+	@ManyToOne
 	@JoinColumn(name="question_id")
 	private Question question;
 	
