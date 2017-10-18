@@ -1,103 +1,42 @@
--- MySQL Workbench Forward Engineering
+LOCK TABLES `quiz` WRITE;
+/*!40000 ALTER TABLE `quiz` DISABLE KEYS */;
+INSERT INTO `quiz` VALUES (10,'States');
+/*!40000 ALTER TABLE `quiz` ENABLE KEYS */;
+UNLOCK TABLES;
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+LOCK TABLES `question` WRITE;
+/*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` (id, quiz_id, question_text) VALUES
+(1,10,'What is the smallest state in the US'),
+(2,10,'What is the Colorado state bird?'),
+(3,10,'What is the capital of Colorado?'),
+(4,10,'What is the Colorado state flower?'),
+(5,10,'What is the official state dance of Colorado?');
 
--- -----------------------------------------------------
--- Schema quizdb
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `quizdb` ;
+/*!40000 ALTER TABLE `question` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- -----------------------------------------------------
--- Schema quizdb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `quizdb` DEFAULT CHARACTER SET utf8 ;
-USE `quizdb` ;
-
--- -----------------------------------------------------
--- Table `quiz`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `quiz` ;
-
-CREATE TABLE IF NOT EXISTS `quiz` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `question`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `question` ;
-
-CREATE TABLE IF NOT EXISTS `question` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `quiz_id` INT UNSIGNED NOT NULL,
-  `question_text` VARCHAR(300) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_question_quiz_id_idx` (`quiz_id` ASC),
-  CONSTRAINT `fk_question_quiz_id`
-    FOREIGN KEY (`quiz_id`)
-    REFERENCES `quiz` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `answer`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `answer` ;
-
-CREATE TABLE IF NOT EXISTS `answer` (
-  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `question_id` INT UNSIGNED NOT NULL,
-  `answer_text` VARCHAR(300) NOT NULL,
-  `is_correct` TINYINT(1) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_answer_question_id_idx` (`question_id` ASC),
-  CONSTRAINT `fk_answer_question_id`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `question` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `quiz`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `quizdb`;
-INSERT INTO `quiz` (`id`, `name`) VALUES (1, 'quiz1');
-INSERT INTO `quiz` (`id`, `name`) VALUES (2, 'quiz2');
-INSERT INTO `quiz` (`id`, `name`) VALUES (3, 'quiz3');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `question`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `quizdb`;
-INSERT INTO `question` (`id`, `quiz_id`, `question_text`) VALUES (1, 1, 'how do you see all questions?');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `answer`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `quizdb`;
-INSERT INTO `answer` (`id`, `question_id`, `answer_text`, `is_correct`) VALUES (1, 1, 'select * from question', 1);
-
-COMMIT;
-
+LOCK TABLES `answer` WRITE;
+/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+INSERT INTO `answer` (id, question_id, answer_text, is_correct) VALUES (1,1,'Deleware',0),
+(2,1,'Rhode Island',1),
+(3,1,'Texas',0),
+(4,1,'Maine',0),
+(5,2,'Lark bunting',1),
+(6,2,'Northern mockingbird',0),
+(7,2,'Brown pelican',0),
+(8,2,'Willow ptarmigan',0),
+(9,3,'Vail',0),
+(10,3,'Denver',1),
+(11,3,'Aspen',0),
+(12,3,'Parker',0),
+(13,4,'Carnation',0),
+(14,4,'Rocky Mountain Columbine',1),
+(15,4,'Rhododendron',0),
+(16,4,'Saguaro',0),
+(17,5,'Clogging',0),
+(18,5,'Square Dance',1),
+(19,5,'Lindy Hop',0),
+(20,5,'Two step',0);
+/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+UNLOCK TABLES;
