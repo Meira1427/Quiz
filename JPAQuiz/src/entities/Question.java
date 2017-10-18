@@ -25,12 +25,12 @@ public class Question {
 	
 	//one question has many answers - multiple choice
 	@JsonManagedReference(value="answersForQuestion")
-	@OneToMany(mappedBy="question", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="question", fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
 	List<Answer> answers;
 	
 	//many questions on one quiz
 	@JsonBackReference(value="questionsOnQuiz")
-	@ManyToOne(cascade= {CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne()
 	@JoinColumn(name="quiz_id")
 	private Quiz quiz;
 	

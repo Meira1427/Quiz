@@ -3,6 +3,7 @@ package entities;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class Quiz {
 	
 	//one quiz has many questions
 	@JsonManagedReference(value="questionsOnQuiz")
-	@OneToMany(mappedBy="quiz", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="quiz", fetch=FetchType.EAGER, cascade= {CascadeType.REMOVE})
 	private Set<Question> questions;
 	
 	private String name;
