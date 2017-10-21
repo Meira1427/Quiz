@@ -1,20 +1,17 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-
+import java.util.List;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+import entities.Answer;
 import entities.Question;
 import entities.Quiz;
-
 
 public class QuizTest {
 	
@@ -50,6 +47,19 @@ public class QuizTest {
 		Quiz ten =em.find(Quiz.class, 10);
 		Set<Question> questions = ten.getQuestions();
 		assertEquals(questions.size(), 5);
+	}
+	@Test
+	public void test_get_list_answers_for_questions() {
+		Question one =em.find(Question.class, 1);
+		List<Answer> answers = one.getAnswers();
+		assertEquals(answers.size(), 4);
+	}
+	
+	@Test
+	public void test_get_quiz_for_question () {
+		Question one =em.find(Question.class, 1);
+		Quiz q = one.getQuiz();
+		assertEquals(q.getId(), 10);
 	}
 
 }
