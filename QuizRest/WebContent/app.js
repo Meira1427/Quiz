@@ -147,7 +147,7 @@ var buildNewQuizForm = function(){
     submit.attr('value', 'Create');
     submit.click(function(e) {
         e.preventDefault();
-        createNewQuiz(id);
+        createNewQuiz();
     });
     form.append(input);
     form.append(submit);
@@ -166,7 +166,6 @@ var createNewQuiz = function(){
         data: JSON.stringify(newOne)
         })
         .done(function(data, status){
-            console.log('completed a new Quiz');
             loadQuizes();
         })
         .fail(function(xhr, status, error){
@@ -178,15 +177,15 @@ var editQuizForm = function(id){
     $('#content').append('<br>');
     var form = $('<form>');
     form.attr('name', 'editQuiz');
-    form.attr('id', id);
     var input = $('<input>');
     input.attr('type', 'text');
     input.attr('name', 'quizName');
+    input.attr('id', 'quizName');
     input.attr('placeholder', 'Quiz Name');
     var submit = $('<input>');
     submit.attr('type', 'submit');
     submit.attr('name', 'submit');
-    submit.attr('value', 'Create');
+    submit.attr('value', 'Submit');
     submit.click(function(e) {
         e.preventDefault();
         submitEditQuiz(id);
@@ -197,15 +196,19 @@ var editQuizForm = function(id){
 };
 
 var submitEditQuiz = function(id) {
-    var edited = {
-        name: $(editQuiz.quizName).val()
-    }
+    console.log(id);
+    console.log($('#quizName').val());
+    var editedOne = {
+        id: id,
+        name: $('#quizName').val()
+    };
+    console.log(editedOne);
     $.ajax({
         type: 'PUT',
-        url: 'api/quizzes' + id,
+        url: 'api/quizzes/' + id,
         dataType: 'json',
         contentType: 'application/json',
-        data: JSON.stringify(edited)
+        data: JSON.stringify(editedOne)
     })
     .done(function(data, status){
         displaySingleQuiz(id);

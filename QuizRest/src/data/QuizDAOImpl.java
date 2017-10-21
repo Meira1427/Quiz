@@ -1,12 +1,15 @@
 package data;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entities.Question;
@@ -53,8 +56,12 @@ public class QuizDAOImpl implements QuizDAO {
 			if(quiz.getName() != null && quiz.getName().length() > 0 ) {
 				managedQuiz.setName(quiz.getName());
 			}
-			if(quiz.getQuestions().size() > 0) {
+			if(quiz.getQuestions() != null && quiz.getQuestions().size() > 0) {
 				managedQuiz.setQuestions(quiz.getQuestions());
+			}
+			else {
+				Set<Question> ques = new HashSet<>();
+				managedQuiz.setQuestions(ques);
 			}
 		}
 		return quiz;
