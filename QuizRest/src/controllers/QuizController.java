@@ -56,7 +56,7 @@ public class QuizController {
 	}
 	
 	@RequestMapping(path="quizzes/{id}", method=RequestMethod.PUT) 
-	public Quiz update(	int id, 
+	public Quiz update(	@PathVariable int id, 
 						@RequestBody String quizJSON, 
 						HttpServletResponse res) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -73,7 +73,7 @@ public class QuizController {
 	}
 	
 	@RequestMapping(path="quizzes/{id}", method=RequestMethod.DELETE)
-	public boolean destroy(int id) {
+	public boolean destroy(@PathVariable int id) {
 		return quizDao.destroyQuiz(id);
 	}
 	

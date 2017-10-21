@@ -1,3 +1,19 @@
 body {
-    background-color: thistle;
+    /*background-color: lightgray;*/
+}
+
+table {
+    border-collapse: collapse
+    width: 30%;
+    margin: 1% 2%;
+    border: 2px solid navy;
+}
+
+th, td {
+    text-align: center;
+    border: 1px solid darkslategray;
+}
+
+button {
+    background: lightgray;
 }

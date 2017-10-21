@@ -96,10 +96,6 @@ public class QuizDAOImpl implements QuizDAO {
 			return false;
 		}
 		em.remove(q);
-//		Set<Question> questions = showQuestions(id);
-//		questions.remove(q);
-//		quiz.setQuestions(questions);
-//		updateQuiz(id, quiz);
 		return true;
 	}
 }
