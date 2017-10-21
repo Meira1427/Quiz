@@ -32,7 +32,9 @@ public class QuizController {
 	
 	@RequestMapping(path="quizzes", method=RequestMethod.GET)
 	public List<Quiz> index(HttpServletResponse res) {
-		return quizDao.getAll();
+		List<Quiz> list = quizDao.getAll();
+		System.out.println(list);
+		return list;
 	}
 	
 	@RequestMapping(path="quizzes/{id}", method=RequestMethod.GET)
