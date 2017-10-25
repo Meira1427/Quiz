@@ -59,10 +59,10 @@ public class QuizDAOImpl implements QuizDAO {
 			if(quiz.getQuestions() != null && quiz.getQuestions().size() > 0) {
 				managedQuiz.setQuestions(quiz.getQuestions());
 			}
-			else {
-				Set<Question> ques = new HashSet<>();
-				managedQuiz.setQuestions(ques);
-			}
+//			else { //this will be a problem if there already is a set of questions
+//				Set<Question> ques = new HashSet<>();
+//				managedQuiz.setQuestions(ques);
+//			}
 		}
 		return quiz;
 	}
